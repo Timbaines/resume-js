@@ -51,3 +51,26 @@ Set up project folder, created project files, and pushed initial commit to GitHu
 **Commit:** `"initial project setup"`
 
 ---
+
+### Day 2 — June 16, 2026
+Structured the `data/resume.json` file.
+
+**JSON rules practiced:**
+- Double quotes required around all keys and string values
+- Arrays `[]` hold lists - skills, experience, projects, education, certifications, and achievements
+- Objects `{}` hold related details - each skill category, job, project, certification, and achievement
+- No trailing commas on the last item in an array or object
+
+**Data structure:**
+- `contact` 
+- `summary`
+- `skills` 
+- `experience` 
+- `projects`
+- `education`
+- `certifications`
+- `achievements`
+
+**Commit:** `"add resume data to json"`
+
+---
