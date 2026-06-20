@@ -129,3 +129,42 @@ like synchronous code easier to follow and to explain. Seeing the resume data ap
 **Commit:** `"fetch resume data and log to console"`
 
 ---
+
+### Day 5 — June 19, 2026
+Rendered the header section to the DOM using `document.getElementById()` and using template literals. Added a placeholder avatar image to the project and updated `resume.json` to reference it.
+
+**Decisions made:**
+- Targeted the `#header` element using `document.getElementById('header')`
+- Used template literals to build the HTML string with live data
+- Added `user-placeholder.webp` to the `data/` folder to serve as the default avatar image
+- Updated `resume.json` avatar field to reference `user-placeholder.webp`
+- `data.avatar` renders the profile image dynamically
+- `data.contact.email` is used for the `mailto:` href and for the link text 
+- Added `target="_blank"` and `rel="noopener noreferrer"` to both LinkedIn and GitHub links for security and accessibility.
+- Practicing by keeping all the code in `src/index.mjs` and eventually separating them into their own files.
+
+**What the code does:**
+```javascript
+const data = await (await fetch('../data/resume.json')).json();
+console.log(data);
+
+const header = document.getElementById('header');
+header.innerHTML = `
+   <img src="${data.avatar}" alt="profile image">
+   <h1>${data.name}</h1>
+   <p>${data.title}</p>
+   <a href="mailto:${data.contact.email}">${data.contact.email}</a>
+   <a href="${data.contact.linkedIn}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+   <a href="${data.contact.github}" target="_blank" rel="noopener noreferrer">GitHub</a>
+`;
+```
+
+**Takeaways:**
+`document.getElementById()` is how JavaScript finds and targets an HTML section. The template literals place live data directly into HTML without hardcoding anything. This was the first day seeing live data rendered to the DOM.
+
+**Resources:**
+- [Scrimba — Intro to the DOM: Selecting Elements with getElementById](https://v1.scrimba.com/scrim/cN3RkVUZ?pl=p7wk6TL)
+
+**Commit:** `"render 'header' to DOM from resume.json data and add user-placeholder.webp to /data folder"`
+
+---
