@@ -168,3 +168,28 @@ header.innerHTML = `
 **Commit:** `"render 'header' to DOM from resume.json data and add user-placeholder.webp to /data folder"`
 
 ---
+
+### Day 6 — June 20, 2026
+Rendered the summary section to the DOM using `document.getElementById()` and using template literals. 
+
+**Decisions made:**
+- Targeted the `#summary` element using `document.getElementById('summary')`
+- Same practice as Day 5 using template literals to build the HTML string to render live data to the DOM from the `resume.json` file
+- `data.summary` renders the summary dynamically
+
+**What the code does:**
+
+```javascript
+const summary = document.getElementById('summary');
+summary.innerHTML = `
+    <h2>Professional Summary</h2>
+    <p>${data.summary}</p>
+`;
+```
+
+**Takeaways:**
+Continuing to use `document.getElementById()` to target and render each section is reinforcing the pattern by practicing. I recognized that since this project uses top level `await`, error handling needs to be added to catch any failure during `fetch()`. I plan to address this and add the feature to the project before presenting.
+
+**Commit:** `"render 'summary' to DOM from resume.json data"`
+
+---
