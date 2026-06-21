@@ -193,3 +193,45 @@ Continuing to use `document.getElementById()` to target and render each section 
 **Commit:** `"render 'summary' to DOM from resume.json data"`
 
 ---
+
+### Day 7 — June 21, 2026
+Rendered the skills title, divider, and skills list to the DOM. I built the repeated list items first using `.map()` and `.join()`, then inserted the completed HTML string into the section.
+
+**Decisions made:**
+- Targeted the `#skills` element using `document.getElementById('skills')`
+- Used `.map()` to iterate over the `skills` array in `resume.json`
+- Each skill is an object with a `category` and an `items` array
+- Used `skill.items.join(', ')` to convert the nested `items` array into a readable comma separated string
+- Built `skillsListHTML` first before inserting into the DOM to keep the logic separate from the render
+- Added `<hr>` to visually separate the section title from the content
+
+**What the code does:**
+```javascript
+const skillsListHTML = data.skills
+        .map(skill => `
+        <li>
+            <strong>${skill.category}:</strong>
+            ${skill.items.join(', ')}
+        </li>
+    `)
+        .join('');
+
+const skills = document.getElementById('skills');
+
+skills.innerHTML = `
+    <h2>Skills</h2>
+    <hr>
+    <ul>
+        ${skillsListHTML}
+    </ul>
+`;
+```
+
+**Takeaways:**
+`.map()` loops over each object in the array and transforms it into an HTML string. `.join('')` concatenates the results into one string before inserting into the DOM. The nested `skills.items.join(', ')` was the first time working with an array inside an object inside an array for this project. 
+
+**Resources:**
+- [Eloquent JavaScript — Data Structures: Objects & Arrays](https://eloquentjavascript.net/04_data.html)
+- [Eloquent JavaScript — Higher-Order Functions](https://eloquentjavascript.net/05_higher_order.html)
+
+**Commit:** `"render 'skills' to DOM from resume.json data"`
