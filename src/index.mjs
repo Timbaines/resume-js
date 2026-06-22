@@ -40,3 +40,24 @@ skills.innerHTML = `
         ${skillsListHTML}
     </ul>
 `;
+
+// EXPERIENCE
+const experienceListHTML = data.experience
+    .map(job => `
+        <article>
+            <h3>${job.company}</h3>
+            <p><strong>${job.title}</strong> | ${job.dates}</p>
+            <ul>
+                ${job.description.map(items => `<li>${items}</li>`).join('')}
+            </ul>
+        </article>
+    `)
+    .join('');
+
+const experience = document.getElementById('experience');
+
+experience.innerHTML = `
+    <h2>Experience</h2>
+    <hr>
+    ${experienceListHTML}
+`;

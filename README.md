@@ -235,3 +235,45 @@ skills.innerHTML = `
 - [Eloquent JavaScript — Higher-Order Functions](https://eloquentjavascript.net/05_higher_order.html)
 
 **Commit:** `"render 'skills' to DOM from resume.json data"`
+
+---
+
+### Day 8 — June 22, 2026
+Rendered the experience title, divider, and experience list to the DOM. I built the repeated list items first using `.map()` and `.join()`, then inserted the completed HTML string into the section.
+
+**Decisions made:**
+- Targeted the `#experience` element using `document.getElementById('experience')`
+- Used `.map()` to iterate over the `experience` array in `resume.json`
+- Each experience is an object with a `company`, `title`, `dates` and a `description` array
+- Used `job.description.map()` and `.join('')` to render each item in the nested `description` array as its own `<li>` element
+- Built `experienceListHTML` first before inserting into the DOM to keep the logic separate from the render
+- Added `<hr>` to visually separate the section title from the content
+
+**What the code does:**
+
+```javascript
+const experienceListHTML = data.experience
+        .map(job => `
+        <article>
+            <h3>${job.company}</h3>
+            <p><strong>${job.title}</strong> | ${job.dates}</p>
+            <ul>
+                ${job.description.map(items => `<li>${items}</li>`).join('')}
+            </ul>
+        </article>
+    `)
+        .join('');
+
+const experience = document.getElementById('experience');
+
+experience.innerHTML = `
+    <h2>Experience</h2>
+    <hr>
+    ${experienceListHTML}
+`;
+```
+
+**Takeaways:**
+`.map()` loops over each object in the array and transforms it into an HTML string. `.join('')` concatenates the results into one string before inserting into the DOM. The nested `job.description.map()` reinforced the pattern from Day 7. Each description item renders as its own `<li>` rather than a comma separated string for a cleaner presentation with the resume bullet points.
+
+**Commit:** `"render 'experience' to DOM from resume.json data"`
