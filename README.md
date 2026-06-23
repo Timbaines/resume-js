@@ -277,3 +277,44 @@ experience.innerHTML = `
 `.map()` loops over each object in the array and transforms it into an HTML string. `.join('')` concatenates the results into one string before inserting into the DOM. The nested `job.description.map()` reinforced the pattern from Day 7. Each description item renders as its own `<li>` rather than a comma separated string for a cleaner presentation with the resume bullet points.
 
 **Commit:** `"render 'experience' to DOM from resume.json data"`
+
+---
+
+### Day 9 — June 23, 2026
+Continued rendering the objects from the `resume.json` file with adding the projects title, divider, and projects list to the DOM. Again, I built the repeated list items first using `.map()` and `.join()`, then inserted the completed HTML string into the section.
+
+**Decisions made:**
+- Targeted the `#projects` element using `document.getElementById('projects')`
+- Used `.map()` to iterate over the `projects` array in `resume.json`
+- Each project has an object with a `name`, `description`, and `url`
+- Used `<a href="${project.url}" target="_blank" rel="noopener noreferrer">View Project</a>` to link to specific featured project 
+- Built `projectListHTML` first before inserting into the DOM to keep the logic separate from the render
+- Added `<hr>` to visually separate the section title from the content
+
+**What the code does:**
+```javascript
+const projectListHTML = data.projects
+        .map(project => `
+        <article>
+            <h3>${project.name}</h3>
+            <p>${project.description}</p>
+            <a href="${project.url}" target="_blank" rel="noopener noreferrer">View Project</a>
+        </article>
+    `)
+        .join('');
+
+const projects = document.getElementById('projects');
+
+projects.innerHTML = `
+ <h2>Projects</h2>
+    <hr>
+    ${projectListHTML}
+`;
+```
+
+**Takeaways:**
+Gaining muscle memory through daily practice using the `.map()` method to loop over each object and transforming it into an HTML string. `.join('')` concatenates the results into one string before inserting into the DOM.
+
+**Commit:** `"render 'projects' to DOM from resume.json data"`
+
+---

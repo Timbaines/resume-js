@@ -61,3 +61,22 @@ experience.innerHTML = `
     <hr>
     ${experienceListHTML}
 `;
+
+// PROJECTS
+const projectListHTML = data.projects
+    .map(project => `
+        <article>
+            <h3>${project.name}</h3>
+            <p>${project.description}</p>
+            <a href="${project.url}" target="_blank" rel="noopener noreferrer">View Project</a>
+        </article>
+    `)
+    .join('');
+
+const projects = document.getElementById('projects');
+
+projects.innerHTML = `
+ <h2>Projects</h2>
+    <hr>
+    ${projectListHTML}
+`;
