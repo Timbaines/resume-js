@@ -76,7 +76,22 @@ const projectListHTML = data.projects
 const projects = document.getElementById('projects');
 
 projects.innerHTML = `
- <h2>Projects</h2>
+    <h2>Projects</h2>
     <hr>
     ${projectListHTML}
+`;
+
+// EDUCATION
+const educationListHTML = data.education
+    .map(educationItem => `
+        <p>${educationItem.school} | ${educationItem.degree} - ${educationItem.date}</p>
+    `)
+    .join('');
+
+const education = document.getElementById('education');
+
+education.innerHTML = `
+    <h2>Education</h2>
+    <hr>
+    ${educationListHTML}
 `;

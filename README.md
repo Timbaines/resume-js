@@ -306,7 +306,7 @@ const projectListHTML = data.projects
 const projects = document.getElementById('projects');
 
 projects.innerHTML = `
- <h2>Projects</h2>
+    <h2>Projects</h2>
     <hr>
     ${projectListHTML}
 `;
@@ -318,3 +318,38 @@ Gaining muscle memory through daily practice using the `.map()` method to loop o
 **Commit:** `"render 'projects' to DOM from resume.json data"`
 
 ---
+
+### Day 10 — June 24, 2026
+Continued rendering objects from the `resume.json` file with adding the education title, divider, and education list to the DOM. Using the same approach from previous sections, I built the repeated list items first using `.map()` and `.join()`, then inserted the completed HTML string into the section.
+
+**Decisions made:**
+- Targeted the `#education` element using `document.getElementById('education')`
+- Used `.map()` to iterate over the `education` array in `resume.json`
+- Named the `.map()` parameter `educationItem` for readability
+- Each education entry is an object with a `school`, `degree`, and `date`
+- Used a single `<p>` tag instead of an `<article>` — education entries
+  are simpler data with no nested arrays
+- Used `|` and `-` as inline separators for the temporary layout until I restructure the project and add CSS styling
+- Added `<hr>` to visually separate the section title from the content
+
+**What the code does:**
+```javascript
+const educationListHTML = data.education
+      .map(educationItem => `
+      <p>${educationItem.school} | ${educationItem.degree} - ${educationItem.date}</p>
+      `)
+      .join('');
+
+const education = document.getElementById('education');
+
+education.innerHTML = `
+    <h2>Education</h2>
+    <hr>
+    ${educationListHTML}
+`;
+```
+
+**Takeaways:**
+Continued daily practice using the `.map()` method to loop over each object and transform it into an HTML string. `.join('')` concatenates the results into one string before inserting into the DOM. I chose a single `<p>` tag over `<article>`. This section did not need the same structure since there were no array of objects within an array.
+
+**Commit:** `"render 'education' to DOM from resume.json data"`
