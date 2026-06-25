@@ -353,3 +353,43 @@ education.innerHTML = `
 Continued daily practice using the `.map()` method to loop over each object and transform it into an HTML string. `.join('')` concatenates the results into one string before inserting into the DOM. I chose a single `<p>` tag over `<article>`. This section did not need the same structure since there were no array of objects within an array.
 
 **Commit:** `"render 'education' to DOM from resume.json data"`
+
+---
+
+### Day 11 — June 25, 2026
+Continued rendering the objects from the `resume.json` file with adding the certifications title, divider, and certifications list to the DOM. Using the same approach from previous sections, I built the repeated list items first using `.map()` and `.join()`, then inserted the completed HTML string into the section.
+
+**Decisions made:**
+- Targeted the `#certifications` element using `document.getElementById('certifications')`
+- Used `.map()` to iterate over the `certifications` array in `resume.json`
+- Named the `.map()` parameter `certification` for readability
+- Each certification entry is an object with a `name`, `issuer`, and `date`
+- Used `<strong>` to highlight the certification name for visual emphasis
+- Used `-` and `,` as inline separators to keep the layout clean until I restructure the project and add CSS styling
+- Rendered each entry as a `<li>` inside a `<ul>` to have a structured list for multiple certification entries
+- Added `<hr>` to visually separate the section title from the content
+
+**What the code does:**
+```javascript
+const certificationsListHTML = data.certifications
+    .map(certification => `
+    <li>
+      <strong>${certification.name}</strong> - ${certification.issuer}, ${certification.date}
+    </li>
+    `)
+    .join('');
+
+const certifications = document.getElementById('certifications');
+
+certifications.innerHTML = `
+    <h2>Certifications</h2>
+    <hr>
+    <ul>
+      ${certificationsListHTML}
+    </ul>
+`;
+```
+**Takeaways:**
+Continued daily practice using the `.map()` method to loop over each object and transform it into an HTML string. `.join('')` concatenates the results into one string before inserting into the DOM. I caught the wrong `<h2>` title before pushing. It was a quick reminder why it is important to review the code before every commit.
+
+**Commit:** `"render 'certifications' to DOM from resume.json data"`

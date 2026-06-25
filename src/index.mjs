@@ -95,3 +95,22 @@ education.innerHTML = `
     <hr>
     ${educationListHTML}
 `;
+
+// CERTIFICATIONS
+const certificationsListHTML = data.certifications
+    .map(certification => `
+        <li>
+          <strong>${certification.name}</strong> - ${certification.issuer}, ${certification.date}
+        </li>
+    `)
+    .join('');
+
+const certifications = document.getElementById('certifications');
+
+certifications.innerHTML = `
+    <h2>Certifications</h2>
+    <hr>
+    <ul>
+        ${certificationsListHTML}
+    </ul>
+`;
