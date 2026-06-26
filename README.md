@@ -444,4 +444,4 @@ footer.innerHTML = `
 **Takeaways:**
 Continued daily practice using the `.map()` method to loop over each object and transform it into an HTML string. `.join('')` concatenates the results into one string before inserting into the DOM. All eight sections plus the footer are now pulling live data from the `resume.json` and rendering it to the page.
 
-**Commit:** `"render 'achievements' to DOM from resume.json data"`
+**Commit:** `"render 'achievements' and 'footer' to DOM from resume.json data"`
