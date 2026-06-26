@@ -100,5 +100,9 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
       "date": "Month Year"
     }
-  ]
+  ],
+  "footer": {
+    "copyrightYear": "2026",
+    "description": "Built with JavaScript"
+  }
 }

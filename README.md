@@ -407,7 +407,11 @@ Rendered the last section from the `resume.json` file, adding the achievements t
 - Used `<strong>` to highlight the achievement name for visual emphasis
 - Used `-` as inline separators to keep the layout clean until I restructure the project and add CSS styling
 - Rendered each entry as a `<li>` inside a `<ul>` to have a structured list for multiple achievement entries
-- Added `<hr>` to visually separate the section title from the content
+- Added `<hr>` to visually separate the section title from the content 
+- Added a `footer` object to `resume.json` with `copyrightYear`and `description` fields
+- Targeted the `#footer` element using `document.getElementById('footer')`
+- Used `&copy;` HTML entity for the copyright symbol
+- `data.footer.copyrightYear` and `data.name` dynamically render the copyright line from the JSON file
 
 **What the code does:**
 ```javascript
@@ -428,9 +432,16 @@ achievements.innerHTML = `
         ${achievementsListHTML}
     </ul>
 `;
+
+const footer = document.getElementById('footer');
+
+footer.innerHTML = `
+    <p>&copy; ${data.footer.copyrightYear} ${data.name}</p>
+    <p>${data.footer.description}</p>
+`;
 ```
 
 **Takeaways:**
-Continued daily practice using the `.map()` method to loop over each object and transform it into an HTML string. `.join('')` concatenates the results into one string before inserting into the DOM. All eight sections are now pulling live data from the `resume.json` and rendering it to the page.
+Continued daily practice using the `.map()` method to loop over each object and transform it into an HTML string. `.join('')` concatenates the results into one string before inserting into the DOM. All eight sections plus the footer are now pulling live data from the `resume.json` and rendering it to the page.
 
 **Commit:** `"render 'achievements' to DOM from resume.json data"`

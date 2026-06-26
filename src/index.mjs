@@ -133,3 +133,11 @@ achievements.innerHTML = `
         ${achievementsListHTML}
     </ul>
 `;
+
+// FOOTER
+const footer = document.getElementById('footer');
+
+footer.innerHTML = `
+    <p>&copy; ${data.footer.copyrightYear} ${data.name}</p>
+    <p>${data.footer.description}</p>
+`;
