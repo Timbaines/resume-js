@@ -114,3 +114,22 @@ certifications.innerHTML = `
         ${certificationsListHTML}
     </ul>
 `;
+
+// ACHIEVEMENTS
+const achievementsListHTML = data.achievements
+    .map(achievement => `
+        <li>
+            <strong>${achievement.title}</strong> - ${achievement.description} - ${achievement.date}
+        </li>
+    `)
+    .join('');
+
+const achievements = document.getElementById('achievements');
+
+achievements.innerHTML = `
+    <h2>Achievements</h2>
+    <hr>
+    <ul>
+        ${achievementsListHTML}
+    </ul>
+`;

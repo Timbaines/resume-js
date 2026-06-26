@@ -393,3 +393,44 @@ certifications.innerHTML = `
 Continued daily practice using the `.map()` method to loop over each object and transform it into an HTML string. `.join('')` concatenates the results into one string before inserting into the DOM. I caught the wrong `<h2>` title before pushing. It was a quick reminder why it is important to review the code before every commit.
 
 **Commit:** `"render 'certifications' to DOM from resume.json data"`
+
+---
+
+### Day 12 — June 26, 2026
+Rendered the last section from the `resume.json` file, adding the achievements title, divider, and achievements list to the DOM. Using the same approach from previous sections, I built the repeated list items first using `.map()` and `.join()`, then inserted the completed HTML string into the section.
+
+**Decisions made:**
+- Targeted the `#achievements` element using `document.getElementById('achievements')`
+- Used `.map()` to iterate over the `achievements` array in `resume.json`
+- Named the `.map()` parameter `achievement` for readability
+- Each achievement entry is an object with a `title`, `description`, and `date`
+- Used `<strong>` to highlight the achievement name for visual emphasis
+- Used `-` as inline separators to keep the layout clean until I restructure the project and add CSS styling
+- Rendered each entry as a `<li>` inside a `<ul>` to have a structured list for multiple achievement entries
+- Added `<hr>` to visually separate the section title from the content
+
+**What the code does:**
+```javascript
+const achievementsListHTML = data.achievements
+    .map(achievement => `
+      <li>
+          <strong>${achievement.title}</strong> - ${achievement.description} - ${achievement.date}
+      </li>
+    `)
+    .join('');
+
+const achievements = document.getElementById('achievements');
+
+achievements.innerHTML = `
+    <h2>Achievements</h2>
+    <hr>
+    <ul>
+        ${achievementsListHTML}
+    </ul>
+`;
+```
+
+**Takeaways:**
+Continued daily practice using the `.map()` method to loop over each object and transform it into an HTML string. `.join('')` concatenates the results into one string before inserting into the DOM. All eight sections are now pulling live data from the `resume.json` and rendering it to the page.
+
+**Commit:** `"render 'achievements' to DOM from resume.json data"`
