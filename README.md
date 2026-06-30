@@ -445,3 +445,56 @@ footer.innerHTML = `
 Continued daily practice using the `.map()` method to loop over each object and transform it into an HTML string. `.join('')` concatenates the results into one string before inserting into the DOM. All eight sections plus the footer are now pulling live data from the `resume.json` and rendering it to the page.
 
 **Commit:** `"render 'achievements' and 'footer' to DOM from resume.json data"`
+
+---
+
+### Day 13 — June 30, 2026
+Added error handling to the project by creating a new `src/index.demo.mjs` file to test a `try/catch` block while keeping the existing `index.mjs` file to begin refactoring the code. Updated `index.html` to point to the inline script `index.demo.mjs` for testing.
+
+**Decisions made:**
+- Created `index.demo.mjs` to test error handling
+- Cleared `index.mjs` to prepare for the upcoming project restructure
+- Updated `index.html` script tag to `src/index.demo.mjs` for testing
+- Wrapped all code in a `try/catch` block to handle any failure during `fetch()`
+- Added a `response.ok` check to catch unsuccessful HTTP responses before attempting to parse the data
+- Used `throw new Error()` to surface a custom message with the HTTP status code if the response fails
+- The `catch` block renders a visible error message to the DOM instead of silently failing in the console
+- Used `document.querySelector('main')` in the `catch` block with an `if` check to confirm the `main` element exists before updating it
+- I am aware that wrapping all rendering logic inside a single `try/catch` block is not considered best practice, and it is only being used for demo and learning purposes
+
+**What the code does:**
+
+```javascript
+try {
+    const response = await fetch('../data/resume.json');
+
+    if (!response.ok) {
+        throw new Error(`Failed to load resume data. Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    // RESUME SECTIONS RENDER HERE
+
+} catch (error) {
+    console.error('Failed to load resume data');
+
+    const main = document.querySelector('main');
+
+    if (main) {
+        main.innerHTML = `
+            <h2>Failed to load resume data</h2>
+        `
+    }
+}
+```
+**Takeaways:**
+When a `catch` block is used, it executes when any exception is thrown from within the `try` block. Control transfers to the `catch` block the moment an exception occurs. Checking `response.ok` before parsing the data catches HTTP errors that `fetch()` alone would not throw. I am addressing the error handling identified in the Day 6 notes and this is the first time intentionally writing code to handle what happens when code is not executed properly.
+
+**Resources:**
+- [MDN documentation: try...catch - unconditional catch block](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch)
+- [MDN documentation: Document: querySelector() method](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)
+
+**Commit:** `"add try/catch error handling and create index.demo.mjs to separate demo from refactored code"`
+
+---
