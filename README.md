@@ -498,3 +498,94 @@ When a `catch` block is used, it executes when any exception is thrown from with
 **Commit:** `"add try/catch error handling and create index.demo.mjs to separate demo from refactored code"`
 
 ---
+
+### Day 14 — July 2, 2026
+First day refactoring the code from `index.demo.mjs` into modular components for separation of concerns. Created a `sections/` subfolder inside `src/` to house individual section modules. Refactored `index.mjs` to act as the entry point by importing and calling the render function from `render.mjs`.
+
+**Decisions made:**
+- Created `src/sections/` subfolder to organize section modules
+- Created `src/sections/header.mjs` with an exported `renderHeader` function
+- Destructured the `data` object in `renderHeader` since it receives the full data object, destructuring pulls only what the header needs for a cleaner template
+- Wrapped header content in `<div>` elements with semantic HTML and class names in preparation for CSS styling
+- Created `src/render.mjs` as the orchestrator that imports all section render functions and exports a single `renderResume` function
+- Updated `src/index.mjs` to import `renderResume` from `render.mjs`
+- Used top level `await` in `index.mjs` to fetch the data and pass it to `renderResume(data)`
+- Added `try/catch` block to `index.mjs` wrapping the `fetch()` and `renderResume(data)` call — carried over from the pattern tested in `index.demo.mjs`
+- Updated `index.html` script src from `index.demo.mjs` back to `index.mjs` to point to the refactored entry
+
+**What the code does:**
+
+`src/sections/header.mjs`
+```javascript
+export function renderHeader({ avatar, name, title, contact }) {
+    return `
+        <div class="header-image">
+            <img src="${avatar}" alt="${name} profile image">
+        </div>
+        <div class="header-content">
+            <div class="header-title">
+                <h1>${name}</h1>
+                <p>${title}</p>
+            </div>
+            <div class="header-contact">
+                <a href="mailto:${contact.email}">${contact.email}</a>
+                <span>|</span>
+                <a href="${contact.linkedIn}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <span>|</span>
+                <a href="${contact.github}" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+        </div>
+    `;
+}
+```
+
+`src/render.mjs`
+```javascript
+import { renderHeader } from './sections/header.mjs'
+
+export function renderResume(data) {
+    document.getElementById('header').innerHTML = renderHeader(data);
+}
+```
+
+`src/index.mjs`
+```javascript
+import { renderResume } from './render.mjs';
+
+try {
+  const response = await fetch('../data/resume.json');
+
+  if (!response.ok) {
+    throw new Error(`Failed to load resume data. Status: ${response.status}`);
+  }
+
+  const data = await response.json()
+
+  // RESUME SECTIONS RENDER HERE
+  renderResume(data);
+
+} catch (error) {
+  console.error('Failed to load resume data');
+
+  const main = document.querySelector('main');
+
+  if (main) {
+    main.innerHTML = `
+        <h2>Failed to load resume data</h2>
+        `
+  }
+}
+```
+
+**Takeaways:**
+Refactoring means reorganizing existing code without changing what it does. Each section now lives in its own file with one job. The `header.mjs` only knows how to render the header. `render.mjs` coordinates all the sections. `index.mjs` fetches the data and starts the process. Destructuring the `data` object in `renderHeader` was this project's first time demonstrating passing only what a function needs instead of the entire object.
+
+**Resources:**
+- [MDN JavaScript Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
+- [MDN Import - JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
+- [MDN Export - JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export)
+- [MDN Destructuring Assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+
+**Commit:** `"begin refactoring header module, render.mjs, index.mjs with try/catch and updated index.html script src"`
+
+---
