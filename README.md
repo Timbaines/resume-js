@@ -589,3 +589,69 @@ Refactoring means reorganizing existing code without changing what it does. Each
 **Commit:** `"begin refactoring header module, render.mjs, index.mjs with try/catch and updated index.html script src"`
 
 ---
+
+### Day 15 — July 3, 2026
+Continued refactoring by creating `summary.mjs` as a modular component and importing it into `render.mjs`. Updated `header.mjs` to add an outer wrapper `<div>` with a `header-container` class for consistency and preparation for CSS styling.
+
+**Decisions made:**
+- Created `src/sections/summary.mjs` with an exported `renderSummary` function
+- Destructured `summary` from the `data` object for a cleaner template
+- Added a `<div class="section-container">` wrapper to `summary.mjs` for consistent layout structure across all sections
+- Updated `header.mjs` to add an outer `<div class="header-container">` wrapper to match the same pattern as `summary.mjs`
+- Imported `renderSummary` into `render.mjs` and added it to the `renderResume` function
+
+**What the code does:**
+
+`src/sections/summary.mjs`
+```javascript
+export function renderSummary({ summary }) {
+  return `
+    <div class="section-container">
+        <h2>Professional Summary</h2>
+        <p>${summary}</p>
+    </div>
+    `;
+}
+```
+
+`src/sections/header.mjs` *(Updated)*
+```javascript
+export function renderHeader({ avatar, name, title, contact }) {
+  return `
+        <div class="header-container">
+            <div class="header-image">
+                <img src="${avatar}" alt="${name} profile image">
+            </div>
+            <div class="header-content">
+                <div class="header-title">
+                    <h1>${name}</h1>
+                    <p>${title}</p>
+                </div>
+                <div class="header-contact">
+                    <a href="mailto:${contact.email}">${contact.email}</a>
+                    <span>|</span>
+                    <a href="${contact.linkedIn}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <span>|</span>
+                    <a href="${contact.github}" target="_blank" rel="noopener noreferrer">GitHub</a>
+                </div>
+            </div>
+        </div>
+    `;
+}
+```
+
+`src/render.mjs` *(Updated)*
+```javascript
+import { renderHeader } from './sections/header.mjs'
+import { renderSummary } from './sections/summary.mjs'
+
+export function renderResume(data) {
+  document.getElementById('header').innerHTML = renderHeader(data);
+  document.getElementById('summary').innerHTML = renderSummary(data);
+}
+```
+
+**Takeaways:**
+Each new section module follows the same pattern. Export a function, destructure only what it needs and return an HTML string. Going back to update `header.mjs` to match the `section-container` pattern was an additional refactor for consistency in class naming allowing consistent styling hooks when I begin styling the CSS.
+
+**Commit:** `"refactor summary module and update header.mjs with container class"`
