@@ -655,3 +655,172 @@ export function renderResume(data) {
 Each new section module follows the same pattern. Export a function, destructure only what it needs and return an HTML string. Going back to update `header.mjs` to match the `section-container` pattern was an additional refactor for consistency in class naming allowing consistent styling hooks when I begin styling the CSS.
 
 **Commit:** `"refactor summary module and update header.mjs with container class"`
+
+---
+
+### Day 16 — July 4, 2026
+Continued refactoring by creating individual modular components for skills, experience, projects, education, and certifications. Updated `render.mjs` to import all new modules and pass specific data from the arrays to each render function.
+
+**Decisions made:**
+- Created `src/sections/skills.mjs` with an exported `renderSkills` function
+- Created `src/sections/experience.mjs` with an exported `renderExperience` function
+- Created `src/sections/projects.mjs` with an exported `renderProjects` function
+- Created `src/sections/education.mjs` with an exported `renderEducation` function
+- Created `src/sections/certifications.mjs` with an exported `renderCertifications` function
+- Each function accepts a specific array instead of the full `data` object
+- Added a default empty array parameter `= []` to each function as a fallback if no data is passed
+- Destructured objects inside each `.map()` callback for cleaner templates
+- All sections wrapped in `<div class="section-container">` for consistent layout structure
+- Updated `render.mjs` to import all new section modules and add them into `renderResume` function
+
+**What the code does:**
+
+`src/sections/skills.mjs`
+```javascript
+export function renderSkills(skills = []) {
+  const skillsListHTML = skills
+          .map(({ category, items }) => `
+            <li>
+                <strong>${category}:</strong>
+                <span>${items.join(', ')}</span>
+            </li>
+        `)
+          .join('');
+
+  return `
+        <div class="section-container">
+            <h2>Skills</h2>
+            <hr>
+            <ul>
+                ${skillsListHTML}
+            </ul>
+        </div>
+    `;
+}
+```
+
+`src/sections/experience.mjs`
+```javascript
+export function renderExperience(experience = []) {
+  const experienceListHTML = experience
+          .map(({ company, title, dates, description }) => `
+            <article>
+                <h3>${company}</h3>
+                <p><strong>${title}</strong> | ${dates}</p>
+                <ul>
+                    ${description.map(item => `
+                        <li>${item}</li>
+                    `).join('')}
+                </ul>
+            </article>
+        `)
+          .join('');
+
+  return `
+        <div class="section-container">
+            <h2>Experience</h2>
+            <hr>
+            ${experienceListHTML}
+        </div>
+    `;
+}
+```
+
+`src/sections/projects.mjs`
+```javascript
+export function renderProjects(projects = []) {
+  const projectsListHTML = projects
+          .map(({ name, description, url }) => `
+            <article>
+                <h3>${name}</h3>
+                <p>${description}</p>
+                <a href="${url}" target="_blank" rel="noopener noreferrer">View Project</a>
+            </article>
+        `)
+          .join('');
+
+  return `
+        <div class="section-container">
+            <h2>Projects</h2>
+            <hr>
+            ${projectsListHTML}
+        </div>
+    `;
+}
+```
+
+`src/sections/education.mjs`
+```javascript
+export function renderEducation(education = []) {
+  const educationListHTML = education
+          .map(({ school, degree, date }) => `
+            <article>
+                <h3>${school}</h3>
+                <p><strong>${degree}</strong> - ${date}</p>
+            </article>
+        `)
+          .join('');
+
+  return `
+        <div class="section-container">
+            <h2>Education</h2>
+            <hr>
+            ${educationListHTML}
+        </div>
+    `;
+}
+```
+
+`src/sections/certifications.mjs`
+```javascript
+export function renderCertifications(certifications = []) {
+  const certificationsListHTML = certifications
+          .map(({ name, issuer, date }) => `
+            <article>
+                <h3>${name}</h3>
+                <p>${issuer}</p>
+                <p>Issued: ${date}</p>
+            </article>
+        `)
+          .join('');
+
+  return `
+        <div class="section-container">
+            <h2>Certifications & Professional Development</h2>
+            <hr>
+            ${certificationsListHTML}
+        </div>
+    `;
+}
+```
+
+`src/render.mjs` *(Updated)*
+```javascript
+import { renderHeader } from './sections/header.mjs'
+import { renderSummary } from './sections/summary.mjs'
+import { renderSkills } from './sections/skills.mjs'
+import { renderExperience } from './sections/experience.mjs'
+import { renderProjects } from './sections/projects.mjs'
+import { renderEducation } from './sections/education.mjs'
+import { renderCertifications } from './sections/certifications.mjs'
+
+export function renderResume(data) {
+  document.getElementById('header').innerHTML = renderHeader(data);
+  document.getElementById('summary').innerHTML = renderSummary(data);
+  document.getElementById('skills').innerHTML = renderSkills(data.skills);
+  document.getElementById('experience').innerHTML = renderExperience(data.experience);
+  document.getElementById('projects').innerHTML = renderProjects(data.projects);
+  document.getElementById('education').innerHTML = renderEducation(data.education);
+  document.getElementById('certifications').innerHTML = renderCertifications(data.certifications);
+}
+```
+
+**Takeaways:**
+Completed five section modules following the same established pattern. Each function now receives only the specific array it needs instead
+of the full `data` object. The default empty array parameter `= []` protects each function if data is missing or fails to load. Destructuring directly inside `.map()` callbacks kept the templates clean and readable. I overlooked the swapped content between `education.mjs` and
+`certifications.mjs` that I pasted in the `README.md` code block before committing. It was a good reminder to step away and return with a fresh set of eyes before every review.
+
+**Resources:**
+- [MDN Destructuring Assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+
+**Commit:** `"refactor skills, experience, projects, education and certifications into section modules"`
