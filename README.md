@@ -824,3 +824,88 @@ of the full `data` object. The default empty array parameter `= []` protects eac
 - [MDN Destructuring Assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
 
 **Commit:** `"refactor skills, experience, projects, education and certifications into section modules"`
+
+---
+
+### Day 17 — July 5, 2026
+Finished refactoring the last two individual modular components for achievements and footer. Updated `render.mjs` to import all new modules and pass specific data to each render function.
+
+**Decisions made:**
+- Created `src/sections/achievements.mjs` with an exported `renderAchievements` function
+- Created `src/sections/footer.mjs` with an exported `renderFooter` function
+- Each function accepts a specific array instead of the full `data` object
+- Added a default empty array parameter `= []` to `achievements.mjs` function as a fallback if no data is passed
+- Destructured objects inside `achievements.mjs` `.map()` callback for cleaner templates
+- Wrapped `achievements.mjs` in `<div class="section-container">` for consistent layout structure
+- `renderFooter` receives a destructured object instead of an array so no default empty array parameter is needed
+- Wrapped `footer.mjs` in `<div class="footer-container">` for consistency with the `header.mjs` layout structure 
+- Updated `render.mjs` to import all new section modules and add them into `renderResume` function
+
+**What the code does:**
+
+`src/sections/achievements.mjs`
+```javascript
+export function renderAchievements(achievements = []) {
+  const achievementsListHTML = achievements
+          .map(({ title, description, date }) => `
+            <article>
+                <h3>${title}</h3>
+                <p>${description}</p>
+                <p>${date}</p>
+            </article>
+        `)
+          .join('');
+
+  return `
+        <div class="section-container">
+            <h2>Achievements</h2>
+            <hr>
+            ${achievementsListHTML}
+        </div>
+    `;
+}
+```
+
+`src/sections/footer.mjs`
+```javascript
+export function renderFooter({ copyrightYear, description }) {
+  return `
+        <div class="footer-container">
+            <div class="footer-content">
+                <p>${copyrightYear}</p>
+                <p>${description}</p>
+            </div>
+        </div>
+    `;
+}
+```
+
+`src/render.mjs` *(Updated)*
+```javascript
+import { renderHeader } from './sections/header.mjs'
+import { renderSummary } from './sections/summary.mjs'
+import { renderSkills } from './sections/skills.mjs'
+import { renderExperience } from './sections/experience.mjs'
+import { renderProjects } from './sections/projects.mjs'
+import { renderEducation } from './sections/education.mjs'
+import { renderCertifications } from './sections/certifications.mjs'
+import { renderAchievements } from './sections/achievements.mjs'
+import { renderFooter } from './sections/footer.mjs'
+
+export function renderResume(data) {
+  document.getElementById('header').innerHTML = renderHeader(data);
+  document.getElementById('summary').innerHTML = renderSummary(data);
+  document.getElementById('skills').innerHTML = renderSkills(data.skills);
+  document.getElementById('experience').innerHTML = renderExperience(data.experience);
+  document.getElementById('projects').innerHTML = renderProjects(data.projects);
+  document.getElementById('education').innerHTML = renderEducation(data.education);
+  document.getElementById('certifications').innerHTML = renderCertifications(data.certifications);
+  document.getElementById('achievements').innerHTML = renderAchievements(data.achievements);
+  document.getElementById('footer').innerHTML = renderFooter(data.footer);
+}
+```
+
+**Takeaways:**
+Completed the last two section modules finishing the full refactor of the project into modular components. Every section now lives in its own file. `render.mjs` coordinates all nine modules and `index.mjs` fetches the data. The footer differs from other sections and receives a destructured object instead of an array since it only renders a single block of content.
+
+**Commit:** `"refactor achievements and footer into section modules"`
