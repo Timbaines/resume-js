@@ -909,3 +909,259 @@ export function renderResume(data) {
 Completed the last two section modules finishing the full refactor of the project into modular components. Every section now lives in its own file. `render.mjs` coordinates all nine modules and `index.mjs` fetches the data. The footer differs from other sections and receives a destructured object instead of an array since it only renders a single block of content.
 
 **Commit:** `"refactor achievements and footer into section modules"`
+
+---
+
+### Day 18 — July 6, 2026
+Began styling `style.css` focusing on globals, typography, dividers, links, lists, layout, header, footer and media queries for typography. Updated `summary.mjs`, `skills.mjs` and `projects.mjs` with new class names to support the styling decisions.
+
+**Decisions made:**
+- Added `summary-container` class modifier to `summary.mjs`. It is the only `section-container` without an `<hr>` needing its own spacing adjustment
+- Added `skills-list` class to the `<ul>` in `skills.mjs` to remove default bullet points using `list-style-type: none`
+- Added `link-primary` class to the `View Project` `<a>` tag in `projects.mjs` to visually differentiate it from the header contact links
+- Used `box-sizing: border-box` globally with `*::before` and `*::after` for consistent sizing across all elements
+- Chose `Inter` as the font family with a sans-serif fallback
+- Set `max-width: 960px` with `margin: 0 auto` on `header`, `main` and `footer` to center the layout
+- Added `a:focus` outline for keyboard accessibility
+- Styled `link-primary` as a pill button using `border-radius: 2rem` and a solid background color
+- Added `@media (width <= 680px)` query to scale down `h1` and `h2` typography on smaller screens
+
+**What the code does:**
+
+`src/sections/summary.mjs` *(Updated)*
+```javascript
+export function renderSummary({ summary }) {
+  return `
+    <div class="section-container summary-container">
+        <h2>Professional Summary</h2>
+        <p>${summary}</p>
+    </div>
+    `;
+}
+```
+
+`src/sections/skills.mjs` *(Updated)*
+```javascript
+export function renderSkills(skills = []) {
+  const skillsListHTML = skills
+          .map(({ category, items }) => `
+            <li>
+                <strong>${category}:</strong>
+                <span>${items.join(', ')}</span>
+            </li>
+        `)
+          .join('');
+
+  return `
+        <div class="section-container">
+            <h2>Skills</h2>
+            <hr>
+            <ul class="skills-list">
+                ${skillsListHTML}
+            </ul>
+        </div>
+    `;
+}
+```
+
+`src/sections/projects.mjs` *(Updated)*
+```javascript
+export function renderProjects(projects = []) {
+  const projectsListHTML = projects
+          .map(({ name, description, url }) => `
+            <article>
+                <h3>${name}</h3>
+                <p>${description}</p>
+                <a class="link-primary" href="${url}" target="_blank" rel="noopener noreferrer">View Project</a>
+            </article>
+        `)
+          .join('');
+
+  return `
+        <div class="section-container">
+            <h2>Projects</h2>
+            <hr>
+            ${projectsListHTML}
+        </div>
+    `;
+}
+```
+
+`css/style.css`
+```css
+/***** GLOBAL STYLES *****/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background: #FAFAFA;
+  color: #1A1A1A;
+  font-family: Inter, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/***** TYPOGRAPHY *****/
+h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem;
+}
+
+p {
+  margin: 0 0 0.5rem;
+}
+
+/***** DIVIDERS *****/
+hr {
+  border: 1px solid #989898;
+  margin: 0.75rem 0 1rem;
+}
+
+/***** LINKS *****/
+a {
+  color: #0066CC;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus {
+  outline: 2px solid #1A1A1A;
+  outline-offset: 3px;
+}
+
+.link-primary {
+  display: inline-block;
+  background: #0066CC;
+  color: #FFFFFF;
+  border-radius: 2rem;
+  padding: 0.45rem 0.75rem;
+}
+
+.link-primary:hover {
+  background: #0572dd;
+  text-decoration: none;
+}
+
+/***** LISTS | UL/LI *****/
+ul {
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+}
+
+li {
+  margin-bottom: 0.25rem;
+}
+
+.skills-list {
+  list-style-type: none;
+  padding-left: 0;
+  line-height: 1.5;
+}
+
+/***** LAYOUT *****/
+header,
+main,
+footer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+header {
+  padding-bottom: 1rem;
+}
+
+main {
+  padding-top: 1rem;
+  padding-bottom: 0;
+}
+
+/* INCLUDES ALL SECTIONS EXCEPT FOR HEADER & FOOTER */
+.section-container {
+  margin-bottom: 1.75rem;
+}
+
+.summary-container h2 {
+  margin-bottom: 0.75rem;
+}
+
+.summary-container p {
+  line-height: 1.5;
+}
+
+article {
+  margin-bottom: 1.25rem;
+}
+
+/***** SECTION | HEADER *****/
+.header-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 auto;
+}
+
+.header-image img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.header-title h1 {
+  margin: 0 0 0.25rem;
+}
+
+.header-title p {
+  margin: 0 0 0.5rem;
+}
+
+.header-contact {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/***** SECTION | FOOTER *****/
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/***** MEDIA QUERIES | TYPOGRAPHY *****/
+@media (width <= 680px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.35rem;
+  }
+}
+```
+
+**Takeaways:**
+Wrote CSS for the project and added new class names to section modules to apply specific styling. I added a modifier `summary-container` in the `summary.mjs` module to adjust spacing inconsistency without
+changing the shared `section-container` class. I also applied `a:focus` to keep keyboard accessibility in mind. I researched best practices for writing media queries in 2026 to stay current with CSS trends. Lastly, I realized that I should have made multiple commits throughout working on CSS sections instead of the entire project. In this particular lesson, I staged each file with its own commit before committing and pushing the project for clarity.
+
+**Commit:** `"add CSS styling and update section modules with class names"`
