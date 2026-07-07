@@ -1,104 +1,124 @@
 {
   "avatar": "/data/user-placeholder.webp",
-  "name": "Your Full Name",
-  "title": "Your Professional Title",
+  "name": "John Smith",
+  "title": "Frontend Developer",
   "contact": {
-    "email": "your.email@gmail.com",
-    "linkedIn": "#",
-    "github": "#"
+    "email": "john.smithdev@gmail.com",
+    "linkedIn": "https://www.linkedin.com/in/johnsmitdev",
+    "github": "https://github.com/johnsmitdev"
   },
-  "summary": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A adipisci alias aperiam, aspernatur beatae blanditiis corporis doloribus dolorum eligendi error fuga illum itaque laboriosam laborum.",
+  "summary": "Frontend developer with experience building responsive, accessible web applications using JavaScript, HTML, CSS, and modern development workflows. Skilled at turning design concepts into clean user interfaces, organizing application data, and improving page performance. Passionate about creating practical tools that are easy to maintain, easy to use, and helpful to real communities.",
   "skills": [
     {
       "category": "Languages",
-      "items": ["Item 1", "Item 1", "Item 3"]
+      "items": ["JavaScript", "HTML5", "CSS3", "Markdown"]
     },
     {
       "category": "Frameworks & Libraries",
-      "items": ["Item 1", "Item 2", "Item 3"]
+      "items": ["React", "Vite", "Node.js", "Express"]
     },
     {
       "category": "Tools & Platforms",
-      "items": ["Item 1", "Item 2", "Item 3"]
+      "items": ["Git", "GitHub", "npm", "VS Code"]
     },
     {
       "category": "Databases",
-      "items": ["Item 1", "Item 2", "Item 3"]
+      "items": ["MongoDB", "PostgreSQL", "Firebase"]
     }
   ],
   "experience": [
     {
-      "company": "Company Name",
-      "title": "Your Job Title",
-      "dates": "Month year - Present",
+      "company": "Blue Harbor Digital",
+      "title": "Frontend Developer",
+      "dates": "March 2024 - Present",
       "description": [
-        "Lorem ipsum dolor sit amet, consectetur adipisicing eli adipisci alias aperiam.",
-        "Lorem ipsum dolor sit amet, consectetur adipisicing eli adipisci alias aperiam.",
-        "Lorem ipsum dolor sit amet, consectetur adipisicing eli adipisci."
+        "Build and maintain responsive web interfaces for small business clients using JavaScript, semantic HTML, and modular CSS.",
+        "Collaborate with designers and project managers to translate wireframes into accessible, production-ready pages.",
+        "Improve site performance by optimizing images, reducing unused code, and testing layouts across desktop and mobile devices."
       ]
     },
     {
-      "company": "Company Name",
-      "title": "Your Job Title",
-      "dates": "Month year - Month Year",
+      "company": "Coastal Community Tech",
+      "title": "Junior Web Developer",
+      "dates": "June 2022 - February 2024",
       "description": [
-        "Lorem ipsum dolor sit amet, consectetur adipisicing eli adipisci alias aperiam.",
-        "Lorem ipsum dolor sit amet, consectetur adipisicing eli adipisci alias aperiam.",
-        "Lorem ipsum dolor sit amet, consectetur adipisicing eli adipisci."
+        "Developed reusable UI components for internal dashboards, event pages, and community resource directories.",
+        "Updated legacy pages to improve accessibility, keyboard navigation, and mobile responsiveness.",
+        "Used Git and GitHub pull requests to review code, document changes, and collaborate with a small development team."
       ]
     },
     {
-      "company": "Company Name",
-      "title": "Your Job Title",
-      "dates": "Month year - Month Year",
+      "company": "Freelance",
+      "title": "Web Developer",
+      "dates": "January 2021 - May 2022",
       "description": [
-        "Lorem ipsum dolor sit amet, consectetur adipisicing eli adipisci alias aperiam.",
-        "Lorem ipsum dolor sit amet, consectetur adipisicing eli adipisci alias aperiam.",
-        "Lorem ipsum dolor sit amet, consectetur adipisicing eli adipisci."
+        "Designed and launched portfolio sites, landing pages, and simple business websites for local clients.",
+        "Set up contact forms, analytics, domain settings, and basic SEO improvements for client projects.",
+        "Communicated directly with clients to gather requirements, explain technical decisions, and provide post-launch support."
       ]
     }
   ],
   "projects": [
     {
-      "name": "Project Name",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit adipisci alias aperiam, aspernatur beatae blanditiis.",
-      "url": "#"
+      "name": "Resume.js",
+      "description": "A dynamic resume website that stores content in a JSON file and renders each section with vanilla JavaScript modules. Built to help developers create a shareable online resume without hardcoding page content.",
+      "url": "https://github.com/demo/resume-js"
     },
     {
-      "name": "Project Name",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit adipisci alias aperiam, aspernatur beatae blanditiis.",
-      "url": "#"
+      "name": "Community Event Board",
+      "description": "A responsive event listing app that displays local meetups, workshops, and networking events. Includes category filters, clean card layouts, and mobile-friendly design patterns.",
+      "url": "https://github.com/demo/community-event-board"
+    },
+    {
+      "name": "Developer Resource Tracker",
+      "description": "A browser-based resource tracker for saving articles, tutorials, documentation links, and project ideas. Focused on simple data structure, reusable rendering functions, and clear user interaction.",
+      "url": "https://github.com/demo/dev-resource-tracker"
     }
   ],
   "education": [
     {
-      "school": "School Name",
-      "degree": "Degree",
-      "date": "Date"
+      "school": "Old Dominion University",
+      "degree": "Bachelor of Science in Information Systems",
+      "date": "2020"
+    },
+    {
+      "school": "freeCodeCamp",
+      "degree": "Responsive Web Design Certification",
+      "date": "2021"
     }
   ],
   "certifications": [
     {
-      "name": "Certification Name",
-      "issuer": "Issuing Organization",
-      "date": " Month Year"
+      "name": "JavaScript Algorithms and Data Structures",
+      "issuer": "freeCodeCamp",
+      "date": "May 2023"
     },
     {
-      "name": "Certification Name",
-      "issuer": "Issuing Organization",
-      "date": " Month Year"
+      "name": "Meta Front-End Developer Professional Certificate",
+      "issuer": "Coursera",
+      "date": "November 2023"
+    },
+    {
+      "name": "GitHub Foundations",
+      "issuer": "GitHub",
+      "date": "April 2024"
     }
   ],
   "achievements": [
     {
-      "title": "Achievement Title",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-      "date": "Month Year"
+      "title": "Launched Community Resume Template",
+      "description": "Created an open-source resume website template to help job seekers build a stronger online presence.",
+      "date": "July 2026"
     },
     {
-      "title": "Achievement Title",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-      "date": "Month Year"
+      "title": "Speaker at Local Developer Meetup",
+      "description": "Presented a beginner-friendly talk on using JSON data to render dynamic web page content.",
+      "date": "June 2026"
+    },
+    {
+      "title": "Accessibility Improvement Initiative",
+      "description": "Helped audit and improve keyboard navigation, color contrast, and semantic structure across internal web pages.",
+      "date": "February 2025"
     }
   ],
   "footer": {
