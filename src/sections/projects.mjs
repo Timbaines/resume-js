@@ -4,7 +4,7 @@ export function renderProjects(projects = []) {
             <article>
                 <h3>${name}</h3>
                 <p>${description}</p>
-                <a href="${url}" target="_blank" rel="noopener noreferrer">View Project</a>
+                <a class="link-primary" href="${url}" target="_blank" rel="noopener noreferrer">View Project</a>
             </article>
         `)
         .join('');
