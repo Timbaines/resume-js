@@ -652,7 +652,7 @@ export function renderResume(data) {
 ```
 
 **Takeaways:**
-Each new section module follows the same pattern. Export a function, destructure only what it needs and return an HTML string. Going back to update `header.mjs` to match the `section-container` pattern was an additional refactor for consistency in class naming allowing consistent styling hooks when I begin styling the CSS.
+Each new section module follows the same pattern. Export a function, destructure only what it needs, and return an HTML string. Going back to update `header.mjs` to match the `section-container` pattern was an additional refactor for consistency in class naming allowing consistent styling hooks when I begin styling the CSS.
 
 **Commit:** `"refactor summary module and update header.mjs with container class"`
 
@@ -913,7 +913,7 @@ Completed the last two section modules finishing the full refactor of the projec
 ---
 
 ### Day 18 — July 6, 2026
-Began styling `style.css` focusing on globals, typography, dividers, links, lists, layout, header, footer and media queries for typography. Updated `summary.mjs`, `skills.mjs` and `projects.mjs` with new class names to support the styling decisions.
+Began styling `style.css` focusing on globals, typography, dividers, links, lists, layout, header, footer, and media queries for typography. Updated `summary.mjs`, `skills.mjs` and `projects.mjs` with new class names to support the styling decisions.
 
 **Decisions made:**
 - Added `summary-container` class modifier to `summary.mjs`. It is the only `section-container` without an `<hr>` needing its own spacing adjustment
@@ -1165,3 +1165,82 @@ Wrote CSS for the project and added new class names to section modules to apply 
 changing the shared `section-container` class. I also applied `a:focus` to keep keyboard accessibility in mind. I researched best practices for writing media queries in 2026 to stay current with CSS trends. Lastly, I realized that I should have made multiple commits throughout working on CSS sections instead of the entire project. In this particular lesson, I staged each file with its own commit before committing and pushing the project for clarity.
 
 **Commit:** `"add CSS styling and update section modules with class names"`
+
+---
+
+### Day 19 — July 7, 2026
+Leveraged AI to update two areas of the project. I replaced lorem ipsum placeholder content in the `resume.json` file with realistic example data for the presentation demo. I also used AI for color palette recommendations to guide CSS styling decisions for an online
+resume.
+
+**Decisions made:**
+- Used AI to generate realistic placeholder data for all sections in `resume.json`. The JSON data structure remained the same
+- Used AI for color palette recommendations and CSS custom properties with `:root` variables for a maintainable design system
+- Added `.text-secondary` as a utility class for muted supporting details, dates, subtitles, and footer text
+- Added `class="text-secondary"` to the professional title in `header.mjs` for visual hierarchy separation
+- Added `<span class="text-secondary">` in `experience.mjs` and `education.mjs` to keep titles primary and dates visually secondary
+- Added `class="text-secondary"` to the date paragraph in `achievements.mjs` and both paragraphs in `footer.mjs`
+- Added `class="text-secondary"` to `issuer` and `date` paragraphs in `certifications.mjs` to keep the certification name primary
+- Updated body, heading, link, divider, and button colors to use the new CSS variable palette
+
+**What the code does:**
+
+`data/resume.json` *(Updated)*
+```json
+Replaced lorem ipsum content with realistic example resume data. 
+```
+
+`css/style.css` *(Updated)*
+```css
+:root {
+  --color-background: #F8FAFC;
+  --color-surface: #FFFFFF;
+  --color-text-primary: #1E293B;
+  --color-text-secondary: #64748B;
+  --color-title: #0F172A;
+  --color-accent: #2563EB;
+  --color-accent-hover: #1D4ED8;
+  --color-divider: #E2E8F0;
+  --color-focus: #0F172A;
+}
+```
+
+`src/sections/header.mjs` *(Updated)*
+```javascript
+<p class="text-secondary">${title}</p>
+```
+
+`src/sections/experience.mjs` *(Updated)*
+```javascript
+<span class="text-secondary">| ${dates}</span>
+```
+
+`src/sections/education.mjs` *(Updated)*
+```javascript
+<span class="text-secondary">- ${date}</span>
+```
+
+`src/sections/certifications.mjs` *(Updated)*
+```javascript
+<p class="text-secondary">${issuer}</p>
+<p class="text-secondary">Issued: ${date}</p>
+```
+
+`src/sections/achievements.mjs` *(Updated)*
+```javascript
+<p class="text-secondary">${date}</p>
+```
+
+`src/sections/footer.mjs` *(Updated)*
+```javascript
+<p class="text-secondary">${copyrightYear}</p>
+<p class="text-secondary">${description}</p>
+```
+
+**Takeaways:**
+Due to time constraints before presenting, I decided to leverage AI as a workflow tool for content generation and color palette recommendations to remain focused on JavaScript structure. I added CSS custom properties with `:root` variables for global changes keeping the design system maintainable. The `.text-secondary` utility class was applied across multiple sections without any JavaScript changes to keep consistent class naming while working through styling. The JSON data structure remained the same with realistic example data for the demo. Updating only the data file while the rest of the project works without changes is the main goal of building this project.
+
+**Resources:**
+- [MDN Using CSS Custom Properties(Variables)](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Cascading_variables/Using_custom_properties)
+- [MDN :root CSS pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:root)
+
+**Commit:** `"add day 19 documentation"`
