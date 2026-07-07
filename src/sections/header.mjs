@@ -7,7 +7,7 @@ export function renderHeader({ avatar, name, title, contact }) {
             <div class="header-content">
                 <div class="header-title">
                     <h1>${name}</h1>
-                    <p>${title}</p>
+                    <p class="text-secondary">${title}</p>
                 </div>
                 <div class="header-contact">
                     <a href="mailto:${contact.email}">${contact.email}</a>

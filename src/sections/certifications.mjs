@@ -3,8 +3,8 @@ export function renderCertifications(certifications = []) {
         .map(({ name, issuer, date }) => `
             <article>
                 <h3>${name}</h3>
-                <p>${issuer}</p>
-                <p>Issued: ${date}</p>
+                <p class="text-secondary">${issuer}</p>
+                <p class="text-secondary">Issued: ${date}</p>
             </article>
         `)
         .join('');

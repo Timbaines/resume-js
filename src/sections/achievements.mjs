@@ -4,7 +4,7 @@ export function renderAchievements(achievements = []) {
             <article>
                 <h3>${title}</h3>
                 <p>${description}</p>
-                <p>${date}</p>
+                <p class="text-secondary">${date}</p>
             </article>
         `)
         .join('');

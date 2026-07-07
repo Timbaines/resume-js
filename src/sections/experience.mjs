@@ -3,7 +3,7 @@ export function renderExperience(experience = []) {
         .map(({ company, title, dates, description }) => `
             <article>
                 <h3>${company}</h3>
-                <p><strong>${title}</strong> | ${dates}</p>
+                <p><strong>${title}</strong> <span class="text-secondary">| ${dates}</span></p>
                 <ul>
                     ${description.map(item => `
                         <li>${item}</li>

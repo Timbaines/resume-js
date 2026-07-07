@@ -3,7 +3,7 @@ export function renderEducation(education = []) {
         .map(({ school, degree, date }) => `
             <article>
                 <h3>${school}</h3>
-                <p><strong>${degree}</strong> - ${date}</p>
+                <p><strong>${degree}</strong> <span class="text-secondary">- ${date}</span></p>
             </article>
         `)
         .join('');
