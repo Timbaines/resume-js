@@ -12,7 +12,7 @@ export function renderSkills(skills = []) {
         <div class="section-container">
             <h2>Skills</h2>
             <hr>
-            <ul>
+            <ul class="skills-list">
                 ${skillsListHTML}
             </ul>
         </div>
