@@ -1,9 +1,6 @@
-export function renderHeader({ avatar, name, title, contact }) {
+export function renderHeader({ name, title, contact }) {
     return `
         <div class="header-container">
-            <div class="header-image">
-                <img src="${avatar}" alt="${name} profile image">
-            </div>
             <div class="header-content">
                 <div class="header-title">
                     <h1>${name}</h1>
