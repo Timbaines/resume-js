@@ -1244,3 +1244,113 @@ Due to time constraints before presenting, I decided to leverage AI as a workflo
 - [MDN :root CSS pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:root)
 
 **Commit:** `"add day 19 documentation"`
+
+--- 
+
+### Day 20 — July 14, 2026
+Removed the avatar image from the project by deleting the image from `/data`, removing the `header-image` div and `avatar` destructure from `header.mjs`, removing `.header-image` styling from `style.css` and deleting the `"avatar"` key from `resume.json`. Added a new `assets/fonts/` folder with the `Inter` font loaded locally to help with performance, design, and privacy.
+
+
+**Decisions made:**
+- Removed avatar image and all related code throughout the `header.mjs`, `style.css` and `resume.json` files
+- Updated `h1, h2, h3` font-size in global styles and media query
+- Added font-weight of 600 to `h1, h2, h3`
+- Updated `.header-title p` font-size in global styles and media query
+- Added font-weight of 300 to `.header-title p`
+- Added a new folder `assets` and subfolder `fonts`
+- Added `Inter` font to load locally for performance
+
+**What the code does:**
+
+`css/style.css` *(Updated)*
+```css
+/***** TYPOGRAPHY *****/
+h1 {
+    color: var(--color-title);
+    font-size: 2.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+h2 {
+    color: var(--color-title);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+h3 {
+    color: var(--color-title);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+}
+
+/***** SECTION | HEADER *****/
+.header-title p {
+  font-size: 2rem;
+  font-weight: 300;
+  margin: 0 0 0.5rem;
+}
+
+/***** MEDIA QUERIES | TYPOGRAPHY *****/
+@media (width <= 680px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.35rem;
+  }
+
+  .header-title p {
+    font-size: 1.75rem;
+  }
+}
+```
+
+**Project Structure** *(Updated)*
+```
+├── assets
+│   └── fonts
+│       ├── inter-v20-latin-100.woff2
+│       ├── inter-v20-latin-200.woff2
+│       ├── inter-v20-latin-300.woff2
+│       ├── inter-v20-latin-500.woff2
+│       ├── inter-v20-latin-600.woff2
+│       ├── inter-v20-latin-700.woff2
+│       ├── inter-v20-latin-800.woff2
+│       ├── inter-v20-latin-900.woff2
+│       └── inter-v20-latin-regular.woff2
+├── css
+│   └── style.css
+├── data
+│   └── resume.json
+├── index.html
+├── package.json
+├── README.md
+└── src
+    ├── index.demo.mjs
+    ├── index.mjs
+    ├── render.mjs
+    └── sections
+        ├── achievements.mjs
+        ├── certifications.mjs
+        ├── education.mjs
+        ├── experience.mjs
+        ├── footer.mjs
+        ├── header.mjs
+        ├── projects.mjs
+        ├── skills.mjs
+        └── summary.mjs
+```
+
+**Takeaways:**
+Making final adjustments to font sizes and font weights for a clean and responsive layout before the presentation. The goal is not perfection but a modern format that is easy to update for anyone who decides to fork the repo.
+
+**Resources:**
+- [Google Webfonts Helper - Inter Font](https://gwfh.mranftl.com/fonts/inter?subsets=latin)
+- [MDN @font-face CSS at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@font-face)
+
+
+**Commit:** `"add day 20 documentation"`
