@@ -1,5 +1,4 @@
 /***** LOCAL FONTS *****/
-
 @font-face {
     font-family: 'Inter';
     src: url('../assets/fonts/inter-v20-latin-300.woff2') format('woff2');
@@ -212,8 +211,48 @@ article {
     flex-wrap: wrap;
 }
 
-/***** MEDIA QUERIES | TYPOGRAPHY *****/
-@media (width <= 680px) {
+/***** PRINT BUTTON *****/
+.print-button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.print-button:hover {
+    background-color: var(--color-accent-hover);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.print-button:active {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.print-button:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+}
+
+.print-button svg {
+    flex-shrink: 0;
+}
+
+/***** MEDIA QUERIES | TYPOGRAPHY & PRINT BUTTON *****/
+@media (width <= 768px) {
+    /* TYPOGRAPHY */
     h1 {
         font-size: 2rem;
     }
@@ -223,6 +262,21 @@ article {
     }
 
     .header-title p {
-        font-size: 1.75rem;
+        font-size: 1.65rem;
+    }
+
+    /* PRINT BUTTON */
+    .print-button {
+        bottom: 1rem;
+        right: 1rem;
+        width: 56px;
+        height: 56px;
+        padding: 0;
+        border-radius: 50%;
+        justify-content: center;
+    }
+
+    .print-button span {
+        display: none;
     }
 }
