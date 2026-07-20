@@ -7,6 +7,7 @@ import { renderEducation } from './sections/education.mjs'
 import { renderCertifications } from './sections/certifications.mjs'
 import { renderAchievements } from './sections/achievements.mjs'
 import { renderFooter } from './sections/footer.mjs'
+import { renderPrintButton, initPrintButton } from './sections/printButton.mjs'
 
 export function renderResume(data) {
     document.getElementById('header').innerHTML = renderHeader(data);
@@ -18,4 +19,9 @@ export function renderResume(data) {
     document.getElementById('certifications').innerHTML = renderCertifications(data.certifications);
     document.getElementById('achievements').innerHTML = renderAchievements(data.achievements);
     document.getElementById('footer').innerHTML = renderFooter(data.footer);
+
+    if (!document.getElementById('print-btn')) {
+        document.body.insertAdjacentHTML('beforeend', renderPrintButton());
+        initPrintButton();
+    }
 }
