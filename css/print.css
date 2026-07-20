@@ -1,0 +1,159 @@
+/***********************************
+   PRINT PAGE SETUP
+   - SUPPRESS BROWSER HEADER/FOOTER
+   - SET PAGE DIMENSIONS
+  ***********************************/
+@page {
+    size: letter portrait;
+    margin: 0.5in;
+
+    @top-left {
+        content: '';
+    }
+    @top-center {
+        content: '';
+    }
+    @top-right {
+        content: '';
+    }
+
+    @bottom-left {
+        content: '';
+    }
+    @bottom-center {
+        content: '';
+    }
+    @bottom-right {
+        content: '';
+    }
+}
+
+@media print {
+    /***** PRINT VARIABLES *****/
+    :root {
+        --color-background: #FFFFFF;
+        --color-surface: #FFFFFF;
+        --color-text-primary: #000000;
+        --color-text-secondary: #333333;
+        --color-title: #000000;
+        --color-accent: #000000;
+        --color-accent-hover: #000000;
+        --color-divider: #CCCCCC;
+    }
+
+    /***** GLOBAL *****/
+    body {
+        background: var(--color-background);
+        color: var(--color-text-primary);
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 11pt;
+    }
+
+    /***** LAYOUT *****/
+    header,
+    main,
+    footer {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .section-container {
+        margin-bottom: 12pt;
+    }
+
+    article {
+        margin-bottom: 10pt;
+    }
+
+    /***** TYPOGRAPHY *****/
+    h1 {
+        font-size: 20pt;
+    }
+
+    h2 {
+        font-size: 14pt;
+    }
+
+    h3 {
+        font-size: 11pt;
+    }
+
+    p,
+    li {
+        font-size: 11pt;
+        line-height: 1.4;
+    }
+
+    .header-title p {
+        font-size: 18pt;
+    }
+
+    /***** DIVIDERS *****/
+    hr {
+        border: 0;
+        border-top: 1px solid var(--color-divider);
+        margin: 6pt 0 8pt;
+    }
+
+    /***** LINKS *****/
+    a {
+        color: var(--color-accent);
+        text-decoration: none;
+    }
+
+    a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        color: var(--color-text-secondary);
+        font-size: 9pt;
+    }
+
+    a[href^="mailto"]::after,
+    a[href^="#"]::after {
+        content: '';
+    }
+
+    .link-primary {
+        background: none;
+        color: var(--color-accent);
+        border-radius: 0;
+        padding: 0;
+        text-decoration: underline;
+    }
+
+    /***** HEADER *****/
+    .header-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 8pt;
+        margin-bottom: 10pt;
+    }
+
+    .header-contact {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4pt;
+    }
+
+    /***** PAGE BREAK CONTROL *****/
+    h1,
+    h2,
+    h3 {
+        break-after: avoid;
+    }
+
+    article {
+        break-inside: avoid;
+    }
+
+    p {
+        orphans: 3;
+        widows: 3;
+    }
+
+    /***** HIDE FROM PRINT *****/
+    footer,
+    .print-button {
+        display: none;
+    }
+}
