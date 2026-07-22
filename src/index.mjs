@@ -1,7 +1,7 @@
 import { renderResume } from './render.mjs';
 
 try {
-    const response = await fetch('../data/resume.json');
+    const response = await fetch('data/resume.json');
 
     if (!response.ok) {
         throw new Error(`Failed to load resume data. Status: ${response.status}`);
