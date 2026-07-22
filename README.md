@@ -1354,3 +1354,377 @@ Making final adjustments to font sizes and font weights for a clean and responsi
 
 
 **Commit:** `"add day 20 documentation"`
+
+---
+
+### Day 21 — July 21, 2026
+Added a print button module to the project with a `printButton.mjs` section file and `print.css` stylesheet. Updated `render.mjs` to render and initialize the print button and updated the `index.html` to link the print stylesheet.
+
+**Decisions made:**
+- Added `printButton.mjs` file to `src/sections` folder
+- Import `printButton.mjs` to `render.mjs` file
+- Updated `render.mjs` export function to render print button
+- Updated `index.html` to include stylesheet `<link rel="stylesheet" href="css/print.css">` within the `<head>` tag
+- Updated `css/styles.css` to include styling for print button
+- Updated media queries to `768px` from `680px` for typography and print button
+- Consolidated typography media queries from `680px` to `768px`
+- Added `print.css` file to `/css` folder and styling
+
+**What the code does:**
+
+`src/sections/printButton.mjs`
+```javascript
+export function renderPrintButton() {
+  return `
+        <button 
+            id="print-btn" 
+            class="print-button" 
+            aria-label="Print resume"
+            title="Print resume (Ctrl+P)"
+            type="button"
+        >
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="2" 
+                stroke-linecap="round" 
+                stroke-linejoin="round"
+                aria-hidden="true"
+            >
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            <span>Print PDF</span>
+        </button>
+    `;
+}
+export function initPrintButton() {
+  const printBtn = document.getElementById('print-btn');
+
+  if (printBtn) {
+    printBtn.addEventListener('click', () => {
+      window.print();
+    });
+  }
+}
+```
+
+`src/render.mjs` *(Updated)*
+```javascript
+import { renderHeader } from './sections/header.mjs'
+import { renderSummary } from './sections/summary.mjs'
+import { renderSkills } from './sections/skills.mjs'
+import { renderExperience } from './sections/experience.mjs'
+import { renderProjects } from './sections/projects.mjs'
+import { renderEducation } from './sections/education.mjs'
+import { renderCertifications } from './sections/certifications.mjs'
+import { renderAchievements } from './sections/achievements.mjs'
+import { renderFooter } from './sections/footer.mjs'
+import { renderPrintButton, initPrintButton } from './sections/printButton.mjs'
+
+export function renderResume(data) {
+  document.getElementById('header').innerHTML = renderHeader(data);
+  document.getElementById('summary').innerHTML = renderSummary(data);
+  document.getElementById('skills').innerHTML = renderSkills(data.skills);
+  document.getElementById('experience').innerHTML = renderExperience(data.experience);
+  document.getElementById('projects').innerHTML = renderProjects(data.projects);
+  document.getElementById('education').innerHTML = renderEducation(data.education);
+  document.getElementById('certifications').innerHTML = renderCertifications(data.certifications);
+  document.getElementById('achievements').innerHTML = renderAchievements(data.achievements);
+  document.getElementById('footer').innerHTML = renderFooter(data.footer);
+
+  if (!document.getElementById('print-btn')) {
+    document.body.insertAdjacentHTML('beforeend', renderPrintButton());
+    initPrintButton();
+  }
+}
+```
+
+`css/style.css` *(Updated)*
+```css
+/***** PRINT BUTTON *****/
+.print-button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.print-button:hover {
+    background-color: var(--color-accent-hover);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.print-button:active {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.print-button:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+}
+
+.print-button svg {
+    flex-shrink: 0;
+}
+
+/***** MEDIA QUERIES | TYPOGRAPHY & PRINT BUTTON *****/
+@media (width <= 768px) {
+    /* TYPOGRAPHY */
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.35rem;
+    }
+
+    .header-title p {
+        font-size: 1.65rem;
+    }
+    
+    /* PRINT BUTTON */
+    .print-button {
+        bottom: 1rem;
+        right: 1rem;
+        width: 56px;
+        height: 56px;
+        padding: 0;
+        border-radius: 50%;
+        justify-content: center;
+    }
+
+    .print-button span {
+        display: none;
+    }
+}
+```
+
+`css/print.css`
+```css
+/***********************************
+   PRINT PAGE SETUP
+   - SUPPRESS BROWSER HEADER/FOOTER
+   - SET PAGE DIMENSIONS
+  ***********************************/
+@page {
+  size: letter portrait;
+  margin: 0.5in;
+
+  @top-left {
+    content: '';
+  }
+  @top-center {
+    content: '';
+  }
+  @top-right {
+    content: '';
+  }
+
+  @bottom-left {
+    content: '';
+  }
+  @bottom-center {
+    content: '';
+  }
+  @bottom-right {
+    content: '';
+  }
+}
+
+@media print {
+  /***** PRINT VARIABLES *****/
+  :root {
+    --color-background: #FFFFFF;
+    --color-surface: #FFFFFF;
+    --color-text-primary: #000000;
+    --color-text-secondary: #333333;
+    --color-title: #000000;
+    --color-accent: #000000;
+    --color-accent-hover: #000000;
+    --color-divider: #CCCCCC;
+  }
+
+  /***** GLOBAL *****/
+  body {
+    background: var(--color-background);
+    color: var(--color-text-primary);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 11pt;
+  }
+
+  /***** LAYOUT *****/
+  header,
+  main,
+  footer {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .section-container {
+    margin-bottom: 12pt;
+  }
+
+  article {
+    margin-bottom: 10pt;
+  }
+
+  /***** TYPOGRAPHY *****/
+  h1 {
+    font-size: 20pt;
+  }
+
+  h2 {
+    font-size: 14pt;
+  }
+
+  h3 {
+    font-size: 11pt;
+  }
+
+  p,
+  li {
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+
+  .header-title p {
+    font-size: 18pt;
+  }
+
+  /***** DIVIDERS *****/
+  hr {
+    border: 0;
+    border-top: 1px solid var(--color-divider);
+    margin: 6pt 0 8pt;
+  }
+
+  /***** LINKS *****/
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    color: var(--color-text-secondary);
+    font-size: 9pt;
+  }
+
+  a[href^="mailto"]::after,
+  a[href^="#"]::after {
+    content: '';
+  }
+
+  .link-primary {
+    background: none;
+    color: var(--color-accent);
+    border-radius: 0;
+    padding: 0;
+    text-decoration: underline;
+  }
+
+  /***** HEADER *****/
+  .header-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 8pt;
+    margin-bottom: 10pt;
+  }
+
+  .header-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4pt;
+  }
+
+  /***** PAGE BREAK CONTROL *****/
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  article {
+    break-inside: avoid;
+  }
+
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /***** HIDE FROM PRINT *****/
+  footer,
+  .print-button {
+    display: none;
+  }
+}
+```
+
+**Project Structure** *(Updated)*
+```
+├── assets
+│   └── fonts
+│       ├── inter-v20-latin-100.woff2
+│       ├── inter-v20-latin-200.woff2
+│       ├── inter-v20-latin-300.woff2
+│       ├── inter-v20-latin-500.woff2
+│       ├── inter-v20-latin-600.woff2
+│       ├── inter-v20-latin-700.woff2
+│       ├── inter-v20-latin-800.woff2
+│       ├── inter-v20-latin-900.woff2
+│       └── inter-v20-latin-regular.woff2
+├── css
+│   ├── print.css
+│   └── style.css
+├── data
+│   └── resume.json
+├── index.html
+├── package.json
+├── README.md
+└── src
+    ├── index.mjs
+    ├── render.mjs
+    └── sections
+        ├── achievements.mjs
+        ├── certifications.mjs
+        ├── education.mjs
+        ├── experience.mjs
+        ├── footer.mjs
+        ├── header.mjs
+        ├── printButton.mjs
+        ├── projects.mjs
+        ├── skills.mjs
+        └── summary.mjs
+```
+
+**Takeaways:**
+I leveraged AI to scaffold the print button module and `print.css`, then referenced MDN documentation before committing. `insertAdjacentHTML('beforeend')` appends the button outside the main content without affecting the resume layout. I also learned it parses strings as HTML, making it a potential XSS risk for untrusted content. Since the print button markup is hardcoded, the risk is low, but it reinforced the importance of learning how to sanitize or safely render dynamic content. The button is split into `renderPrintButton()` for markup and `initPrintButton()` for behavior, following the project’s refactor pattern. The styles related to print are all located in `print.css`, and the button is hidden when printing.
+
+**Resources:**
+- [MDN Printing - CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Media_queries/Printing)
+- [MDN Window:print() method](https://developer.mozilla.org/en-US/docs/Web/API/Window/print)
+- [MDN Element: insertAdjacentHTML() method](https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML)
+- [MDN Cross-site scripting (XSS) / Sanitization](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS)
+
+**Commit:** `"add day 21 documentation"`
