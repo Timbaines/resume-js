@@ -1728,3 +1728,63 @@ I leveraged AI to scaffold the print button module and `print.css`, then referen
 - [MDN Cross-site scripting (XSS) / Sanitization](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS)
 
 **Commit:** `"add day 21 documentation"`
+
+---
+
+### Day 22 — July 27, 2026
+Documented the HTML structure from the beginning of the project. The HTML shell has been the foundation since Day 3 but I never documented it in the README. This documentation clarifies the semantic structure, the section IDs that JavaScript targets, and how the HTML remains intentionally minimal and empty. The HTML structure never changes. Only the JSON file (`resume.json`) is updated when content needs to change. The JavaScript reads that JSON and populates the empty HTML sections, creating a clean separation between structure (HTML), styling (CSS), data (JSON), and logic (JavaScript).
+
+**Decisions made:**
+- The `index.html` file serves as the shell that JavaScript populates dynamically. It contains:
+- Standard HTML5 boilerplate with UTF-8 charset and viewport meta tag for responsive design
+- Two CSS files linked in the `<head>`:
+   - `css/style.css` Main styling for the web interface
+   - `css/print.css` Print specific styling for PDF/print output
+- `<header>`, `<main>`, and `<footer>` element containing empty `<section>` elements with unique IDs
+- `<script type="module">` tag at the bottom of `<body>` that references `src/index.mjs`
+- Empty sections with IDs with each `<section>` having a unique `id` attribute (`header`, `summary`, `skills`, `experience`, `projects`, `education`, `certifications`, `achievements`) that JavaScript targets with `document.getElementById()`
+- The HTML contains no text, links, or hard coded content. All the content comes from `resume.json`
+- Uses semantic HTML `<header>`, `<main>`, `<footer>` for proper document structure and accessibility
+- Uses module script type `type="module"` which enables ES Module syntax (`import`/`export`) required for `.mjs` files
+- Script is placed at the end of `<body>` ensuring the DOM is fully parsed before the JavaScript executes
+
+**What the code does:**
+
+`index.html`
+```html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS STYLESHEET -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- CSS STYLESHEET | PRINT -->
+    <link rel="stylesheet" href="css/print.css">
+    <title>Resume JS</title>
+</head>
+<body>
+
+<header id="header"></header>
+
+<main>
+    <section id="summary"></section>
+    <section id="skills"></section>
+    <section id="experience"></section>
+    <section id="projects"></section>
+    <section id="education"></section>
+    <section id="certifications"></section>
+    <section id="achievements"></section>
+</main>
+
+<footer id="footer"></footer>
+
+<script type="module" src="src/index.mjs"></script>
+</body>
+</html>
+```
+
+**Takeaways:**
+Each section module (e.g., `header.mjs`, `summary.mjs`, `skills.mjs`) returns an HTML string. The `render.mjs` file then targets each section by ID and inserts the HTML. Looking back at the entire project from Day 1 through Day 21, the HTML structure was established early and remained consistent throughout. The empty semantic HTML, combined with dynamic JavaScript rendering, makes the project maintainable and flexible. The print button is the exception; it's appended to the end of `<body>` using `insertAdjacentHTML()` to keep it separate from the main resume content.
+
+**Commit:** `"add day 22 documentation explaining HTML structure from beginning of the project"`
