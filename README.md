@@ -541,7 +541,7 @@ export function renderHeader({ avatar, name, title, contact }) {
 
 `src/render.mjs`
 ```javascript
-import { renderHeader } from './sections/header.mjs'
+import { renderHeader } from './components/header.mjs'
 
 export function renderResume(data) {
     document.getElementById('header').innerHTML = renderHeader(data);
@@ -642,8 +642,8 @@ export function renderHeader({ avatar, name, title, contact }) {
 
 `src/render.mjs` *(Updated)*
 ```javascript
-import { renderHeader } from './sections/header.mjs'
-import { renderSummary } from './sections/summary.mjs'
+import { renderHeader } from './components/header.mjs'
+import { renderSummary } from './components/summary.mjs'
 
 export function renderResume(data) {
   document.getElementById('header').innerHTML = renderHeader(data);
@@ -796,13 +796,13 @@ export function renderCertifications(certifications = []) {
 
 `src/render.mjs` *(Updated)*
 ```javascript
-import { renderHeader } from './sections/header.mjs'
-import { renderSummary } from './sections/summary.mjs'
-import { renderSkills } from './sections/skills.mjs'
-import { renderExperience } from './sections/experience.mjs'
-import { renderProjects } from './sections/projects.mjs'
-import { renderEducation } from './sections/education.mjs'
-import { renderCertifications } from './sections/certifications.mjs'
+import { renderHeader } from './components/header.mjs'
+import { renderSummary } from './components/summary.mjs'
+import { renderSkills } from './components/skills.mjs'
+import { renderExperience } from './components/experience.mjs'
+import { renderProjects } from './components/projects.mjs'
+import { renderEducation } from './components/education.mjs'
+import { renderCertifications } from './components/certifications.mjs'
 
 export function renderResume(data) {
   document.getElementById('header').innerHTML = renderHeader(data);
@@ -882,15 +882,15 @@ export function renderFooter({ copyrightYear, description }) {
 
 `src/render.mjs` *(Updated)*
 ```javascript
-import { renderHeader } from './sections/header.mjs'
-import { renderSummary } from './sections/summary.mjs'
-import { renderSkills } from './sections/skills.mjs'
-import { renderExperience } from './sections/experience.mjs'
-import { renderProjects } from './sections/projects.mjs'
-import { renderEducation } from './sections/education.mjs'
-import { renderCertifications } from './sections/certifications.mjs'
-import { renderAchievements } from './sections/achievements.mjs'
-import { renderFooter } from './sections/footer.mjs'
+import { renderHeader } from './components/header.mjs'
+import { renderSummary } from './components/summary.mjs'
+import { renderSkills } from './components/skills.mjs'
+import { renderExperience } from './components/experience.mjs'
+import { renderProjects } from './components/projects.mjs'
+import { renderEducation } from './components/education.mjs'
+import { renderCertifications } from './components/certifications.mjs'
+import { renderAchievements } from './components/achievements.mjs'
+import { renderFooter } from './components/footer.mjs'
 
 export function renderResume(data) {
   document.getElementById('header').innerHTML = renderHeader(data);
@@ -1416,16 +1416,16 @@ export function initPrintButton() {
 
 `src/render.mjs` *(Updated)*
 ```javascript
-import { renderHeader } from './sections/header.mjs'
-import { renderSummary } from './sections/summary.mjs'
-import { renderSkills } from './sections/skills.mjs'
-import { renderExperience } from './sections/experience.mjs'
-import { renderProjects } from './sections/projects.mjs'
-import { renderEducation } from './sections/education.mjs'
-import { renderCertifications } from './sections/certifications.mjs'
-import { renderAchievements } from './sections/achievements.mjs'
-import { renderFooter } from './sections/footer.mjs'
-import { renderPrintButton, initPrintButton } from './sections/printButton.mjs'
+import { renderHeader } from './components/header.mjs'
+import { renderSummary } from './components/summary.mjs'
+import { renderSkills } from './components/skills.mjs'
+import { renderExperience } from './components/experience.mjs'
+import { renderProjects } from './components/projects.mjs'
+import { renderEducation } from './components/education.mjs'
+import { renderCertifications } from './components/certifications.mjs'
+import { renderAchievements } from './components/achievements.mjs'
+import { renderFooter } from './components/footer.mjs'
+import { renderPrintButton, initPrintButton } from './components/printButton.mjs'
 
 export function renderResume(data) {
   document.getElementById('header').innerHTML = renderHeader(data);
